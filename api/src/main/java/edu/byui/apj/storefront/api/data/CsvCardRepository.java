@@ -1,7 +1,7 @@
 package edu.byui.apj.storefront.api.data;
 
 import com.opencsv.CSVReader;
-import edu.byui.apj.storefront.web.model.Card;
+import edu.byui.apj.storefront.api.model.Card;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 
