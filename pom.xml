@@ -42,6 +42,10 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <modules>
+        <module>web</module>
+        <module>api</module>
+    </modules>
 
     <build>
         <plugins>
