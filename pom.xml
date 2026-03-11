@@ -45,6 +45,7 @@
     <modules>
         <module>web</module>
         <module>api</module>
+        <module>db</module>
     </modules>
 
     <build>
