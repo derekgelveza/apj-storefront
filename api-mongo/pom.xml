@@ -6,7 +6,6 @@
         <groupId>edu.byui.apj.storefront</groupId>
         <artifactId>parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>api-mongo</artifactId>
     <name>api-mongo</name>

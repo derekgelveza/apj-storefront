@@ -46,6 +46,7 @@
         <module>web</module>
         <module>api</module>
         <module>db</module>
+        <module>api-mongo</module>
     </modules>
 
     <build>
