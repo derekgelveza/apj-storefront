@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Fantasy CardWerx — Featured Cards</title>
+    <title>Fantasy CardWerx — Order Confirmation</title>
 
-    <!-- Roboto from Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="cart.css" />
 </head>
 <body>
 <header class="site-header">
@@ -25,7 +25,7 @@
             <a href="index.html" class="store-name-link">
                 <h1 class="store-name">Fantasy CardWerx</h1>
             </a>
-            <div class="tagline">APJ Store — Curated trading cards & collectibles</div>
+            <div class="tagline">APJ Store — Order Confirmation</div>
         </div>
 
         <nav class="header-nav" aria-label="Main navigation">
@@ -33,23 +33,27 @@
             <a href="product-listing.html" class="nav-link">Browse Products</a>
             <a href="cart.html" class="nav-link">Cart</a>
         </nav>
-
-        <form id="searchForm" class="search-form" role="search" aria-label="Search products">
-            <input id="searchInput" class="search-input" type="search" name="q" placeholder="Search cards, specialty, contributor..." autocomplete="off" />
-            <button class="search-btn" type="submit">Search</button>
-        </form>
     </div>
 </header>
 
-<main class="main">
-    <section class="hero">
-        <h2>Featured Cards</h2>
-        <p class="lead">Hand-picked favorites from the APJ collection — fetched live.</p>
-    </section>
-
-    <section id="featured" class="cards-section" aria-live="polite">
-        <div id="status" class="status">Loading featured cards…</div>
-        <div id="cards" class="cards-grid" hidden></div>
+<main class="main cart-main">
+    <section class="cart-area">
+        <h2>Order Confirmation</h2>
+        <div id="confirmStatus" class="status">Loading…</div>
+        <div id="confirmContent" class="cart-content" hidden>
+            <p id="orderIdLine" class="order-id-line">Order ID: —</p>
+            <p id="orderStatusLine" class="order-status-line">Status: Processing…</p>
+            <div id="loadingIndicator" class="loading-indicator" aria-live="polite">
+                Waiting for payment processing…
+            </div>
+            <div id="orderComplete" class="order-complete" hidden>
+                <p class="order-complete-msg">Order Complete</p>
+            </div>
+        </div>
+        <div id="confirmError" class="cart-empty" hidden>
+            <p>Order not found or invalid order ID.</p>
+            <a href="index.html" class="nav-link">Return to home</a>
+        </div>
     </section>
 </main>
 
@@ -61,6 +65,6 @@
     </div>
 </footer>
 
-<script src="index.js" defer></script>
+<script src="order-confirmation.js" defer></script>
 </body>
 </html>
