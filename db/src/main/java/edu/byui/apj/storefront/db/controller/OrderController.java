@@ -6,6 +6,7 @@ import edu.byui.apj.storefront.db.model.Order;
 import edu.byui.apj.storefront.db.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import edu.byui.apj.storefront.db.controller.dto.OrderDetailsResponse;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -27,5 +28,10 @@ public class OrderController {
     public ResponseEntity<OrderStatusResponse> getOrderStatus(@PathVariable Long orderId) {
         Order order = orderService.getOrder(orderId);
         return ResponseEntity.ok(new OrderStatusResponse(order.getId(), order.getStatus()));
+    }
+
+    @GetMapping("/{orderId}/details")
+    public ResponseEntity<OrderDetailsResponse> getOrderDetails(@PathVariable Long orderId) {
+        return ResponseEntity.ok(orderService.getOrderDetails(orderId));
     }
 }

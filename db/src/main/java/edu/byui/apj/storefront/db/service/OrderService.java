@@ -5,6 +5,9 @@ import edu.byui.apj.storefront.db.model.*;
 import edu.byui.apj.storefront.db.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import edu.byui.apj.storefront.db.controller.dto.OrderDetailsItemResponse;
+import edu.byui.apj.storefront.db.controller.dto.OrderDetailsResponse;
+import java.util.List;
 
 import java.time.Instant;
 
@@ -62,5 +65,29 @@ public class OrderService {
     public Order getOrder(Long orderId) {
         return orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
+    }
+
+    /**
+     * Loads order with line items for the JMS consumer (confirmation workflow).
+     */
+    @Transactional(readOnly = true)
+    public OrderDetailsResponse getOrderDetails(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+        order.getItems().size();
+        List<OrderDetailsItemResponse> items = order.getItems().stream()
+                .map(oi -> new OrderDetailsItemResponse(
+                        oi.getProductId(),
+                        oi.getProductName(),
+                        oi.getQuantity(),
+                        oi.getPrice()))
+                .toList();
+        return new OrderDetailsResponse(
+                order.getId(),
+                order.getCreatedAt(),
+                order.getStatus().name(),
+                order.getTotalAmount(),
+                order.getCartId(),
+                items);
     }
 }

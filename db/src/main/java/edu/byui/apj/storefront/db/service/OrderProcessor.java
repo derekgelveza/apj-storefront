@@ -1,5 +1,6 @@
 package edu.byui.apj.storefront.db.service;
 
+import edu.byui.apj.storefront.db.messaging.OrderConfirmationProducer;
 import edu.byui.apj.storefront.db.model.Order;
 import edu.byui.apj.storefront.db.model.OrderStatus;
 import edu.byui.apj.storefront.db.repository.OrderRepository;
@@ -15,9 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderProcessor {
 
     private final OrderRepository orderRepository;
+    private final OrderConfirmationProducer orderConfirmationProducer;
 
-    public OrderProcessor(OrderRepository orderRepository) {
+    public OrderProcessor(OrderRepository orderRepository, OrderConfirmationProducer orderConfirmationProducer) {
         this.orderRepository = orderRepository;
+        this.orderConfirmationProducer = orderConfirmationProducer;
     }
 
     @Async
@@ -28,7 +31,7 @@ public class OrderProcessor {
         order.setStatus(OrderStatus.PROCESSING);
         orderRepository.save(order);
         try {
-            Thread.sleep(10_000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             order.setStatus(OrderStatus.FAILED);
@@ -37,5 +40,6 @@ public class OrderProcessor {
         }
         order.setStatus(OrderStatus.COMPLETED);
         orderRepository.save(order);
+        orderConfirmationProducer.sendOrderCompleted(orderId);
     }
 }
